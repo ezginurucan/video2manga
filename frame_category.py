@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
-from scipy.spatial import distance
 import os
+from dotenv import load_dotenv
 
 def estimate_motion_parameters(frame1, frame2):
     # Convert frames to grayscale
@@ -96,7 +96,8 @@ def group_shot_segments(shot_segments):
     
     return grouped_segments
 
-video_path = "C:\\Users\\LENOVO\\Downloads\\Meet Buckbeak  Harry Potter and the Prisoner of the Azkaban.mp4"
+load_dotenv()
+video_path=os.getenv("VIDEO_PATH")
 shot_segments, total_frames = process_video(video_path)
 
 grouped_segments = group_shot_segments(shot_segments)
