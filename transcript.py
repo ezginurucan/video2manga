@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 def time_to_seconds(time_str):
-    minutes, seconds = map(int, time_str.split(':'))
+    minutes, seconds = map(int, time_str.groups())
     return minutes * 60 + seconds
 
 def get_frames_for_transcript(transcript_file):
@@ -25,9 +25,7 @@ def get_frames_for_transcript(transcript_file):
         for line in file:
             time_match = re.match(r'(\d+):(\d+)', line.strip())
             if time_match:
-                minutes, seconds = map(int, time_match.groups())
-                print(minutes,"min ",seconds,"sec")
-                time_seconds = minutes * 60 + seconds
+                time_seconds=time_to_seconds(time_match)
                 frame_number = round(time_seconds * frame_rate)
                 frames.append(frame_number)
                 frame+=1
